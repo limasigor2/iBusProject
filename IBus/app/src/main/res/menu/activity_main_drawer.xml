@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_onibus_admin"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Ônibus" />
+        <item
+            android:id="@+id/nav_rotas"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Rotas" />
+        <item
+            android:id="@+id/nav_pontos_parada"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Pontos de Parada" />
+        <item
+            android:id="@+id/nav_trajetos"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Trajetos" />
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Perfil" />
+    </group>
+
+</menu>
