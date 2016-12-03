@@ -11,10 +11,11 @@ import team.com.ibus.Dominio.Usuario;
 public class UsuarioDAO {
 	
 	public Boolean insertUsuario(Usuario usuario){
+		
 		try {
 			Connection conexao = ConectaMySQL.obterConexao();
 			
-			String queryInsert = "INSERT INTO usuario (`nome`, `login`, `senha`) "
+			String queryInsert = "INSERT INTO usuario (nome, login, senha) "
 								 + "VALUES (?, ?, ?)";
 			
 			PreparedStatement preparedStm = conexao.prepareStatement(queryInsert);
@@ -106,7 +107,6 @@ public ArrayList<Usuario> listarUsuarios(){
 			preparedStm.setString(1, usuario.getNome());
 			preparedStm.setString(2, usuario.getLogin());
 			preparedStm.setString(3, usuario.getSenha());
-			preparedStm.setInt(4, usuario.getId());
 			preparedStm.executeUpdate();
 			
 			conexao.close();
@@ -161,6 +161,5 @@ public ArrayList<Usuario> listarUsuarios(){
 		
 		return true;
 	}
-	
 	
 }

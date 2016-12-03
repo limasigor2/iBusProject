@@ -16,7 +16,8 @@ public class Usuario {
     }
     
     public Usuario(String nome, String login, String senha) {
-		this.nome = nome;
+		this.id = 0;
+    	this.nome = nome;
 		this.login = login;
 		this.senha = senha;
 	}

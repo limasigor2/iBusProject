@@ -13,10 +13,28 @@ public class Trajeto {
     private Date horaSaidaPrevista;
     private Onibus onibus;
     private Rota rota;
-
-
-
-
-
-
+	
+    public Integer getId() {
+		return id;
+	}
+	
+    public void setId(Integer id) {
+		this.id = id;
+	}
+	
+    public Date getHoraChegadaPrevista() {
+		return horaChegadaPrevista;
+	}
+	
+    public void setHoraChegadaPrevista(Date horaChegadaPrevista) {
+		this.horaChegadaPrevista = horaChegadaPrevista;
+	}
+	
+    public Date getHoraSaidaPrevista() {
+		return horaSaidaPrevista;
+	}
+	
+    public void setHoraSaidaPrevista(Date horaSaidaPrevista) {
+		this.horaSaidaPrevista = horaSaidaPrevista;
+	}
 }
