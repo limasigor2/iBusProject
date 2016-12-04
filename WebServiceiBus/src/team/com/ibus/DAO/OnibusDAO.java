@@ -16,26 +16,26 @@ import java.sql.ResultSet;
 
 public class OnibusDAO {
 
-	public JsonElement inserirOnibus(JsonElement objOnibus){
-		
+	public JsonElement insertOnibus(JsonElement objOnibus){
+
 		String retornoMetodo = "";
 		JsonElement objJsonRetorno = null;
 		Gson gson = new Gson();
-		
+
 		try{
-			
+
 			Onibus onibus = gson.fromJson(objOnibus, Onibus.class);
 
-			Connection conn = ConectaMySQL.obterConexao();
+			Connection conexao = ConectaMySQL.obterConexao();
 
-			String insertQuery = "INSERT INTO onibus(placa, cor) VALUES (?, ?)";
+			String queryInsert = "INSERT INTO onibus(placa, cor) VALUES (?, ?)";
 
-			PreparedStatement preparedStatement = conn.prepareStatement(insertQuery);
+			PreparedStatement preparedStatement = conexao.prepareStatement(queryInsert);
 			preparedStatement.setString(1, onibus.getPlaca());
 			preparedStatement.setString(2, onibus.getCor());
 			preparedStatement.executeUpdate();
-			
-			conn.close();
+
+			conexao.close();
 
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -49,25 +49,25 @@ public class OnibusDAO {
 		return objJsonRetorno;
 	}
 
-	public JsonElement excluirOnibus(JsonElement objOnibus){
-		
+	public JsonElement deleteOnibus(JsonElement objOnibus){
+
 		String retornoMetodo = "";
 		JsonElement objJsonRetorno = null;
 		Gson gson = new Gson();
-		
+
 		try{
 
 			Onibus onibus = gson.fromJson(objOnibus, Onibus.class);
 
-			Connection conn = ConectaMySQL.obterConexao();
+			Connection conexao = ConectaMySQL.obterConexao();
 
-			String insertQuery = "DELETE FROM onibus WHERE id = ?";
+			String queryDelete = "DELETE FROM onibus WHERE id = ?";
 
-			PreparedStatement preparedStatement = conn.prepareStatement(insertQuery);
+			PreparedStatement preparedStatement = conexao.prepareStatement(queryDelete);
 			preparedStatement.setInt(1, onibus.getId());
 			preparedStatement.executeUpdate();
 
-			conn.close();
+			conexao.close();
 
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -82,19 +82,19 @@ public class OnibusDAO {
 	}
 
 	public JsonElement buscarTodosOsOnibus(){
-		
+
 		Gson gson = new Gson();
 		JsonElement objJsonRetorno = null;
 		String listaOnibusRetorno = "";
 		ArrayList<Onibus> listaOnibus = new ArrayList();
 
 		try{
-			
-			Connection conn = ConectaMySQL.obterConexao();
 
-			String selectQuery = "SELECT * FROM onibus";
+			Connection conexao = ConectaMySQL.obterConexao();
 
-			PreparedStatement preparedStatement = conn.prepareStatement(selectQuery);
+			String querySelect = "SELECT * FROM onibus";
+
+			PreparedStatement preparedStatement = conexao.prepareStatement(querySelect);
 
 			ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -105,8 +105,8 @@ public class OnibusDAO {
 				onibus.setCor(resultSet.getString(4));
 				listaOnibus.add(onibus);
 			}
-			
-			conn.close();
+
+			conexao.close();
 
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -119,35 +119,40 @@ public class OnibusDAO {
 		objJsonRetorno = new JsonParser().parse(listaOnibusRetorno);
 		return objJsonRetorno;
 	}
-	
-	//
-	//	public Boolean atualizarOnibus(JsonObject objJsonOnibus){
-	//		
-	//
-	//		try{
-	//
-	//			Gson gson = new Gson();
-	//			Onibus onibus = gson.fromJson(objJsonOnibus, Onibus.class);
-	//
-	//			Connection conn = ConectaMySQL.obterConexao();
-	//
-	//			String insertQuery = "UPDATE onibus SET placa = ?, cor = ? WHERE id = ?";
-	//
-	//			PreparedStatement preparedStatement = conn.prepareStatement(insertQuery);
-	//			preparedStatement.setString(1, onibus.getPlaca());
-	//			preparedStatement.setString(2, onibus.getCor());
-	//			preparedStatement.setInt(3, onibus.getId());
-	//
-	//			preparedStatement.executeUpdate();
-	//
-	//			conn.close();
-	//
-	//		}catch(Exception ex){
-	//			ex.printStackTrace();
-	//			return false;
-	//		}
-	//
-	//		return true;
-	//	}
+
+
+	public JsonElement updateOnibus(JsonElement objOnibus){
+		
+		Gson gson = new Gson();
+		JsonElement objJsonRetorno = null;
+		String retornoMetodo = "";
+		
+		try{
+			
+			Onibus onibus = gson.fromJson(objOnibus, Onibus.class);
+
+			Connection conexao = ConectaMySQL.obterConexao();
+
+			String queryUpdate = "UPDATE onibus SET placa = ?, cor = ? WHERE id = ?";
+
+			PreparedStatement preparedStatement = conexao.prepareStatement(queryUpdate);
+			preparedStatement.setString(1, onibus.getPlaca());
+			preparedStatement.setString(2, onibus.getCor());
+			preparedStatement.setInt(3, onibus.getId());
+			preparedStatement.executeUpdate();
+
+			conexao.close();
+
+		}catch(Exception ex){
+			ex.printStackTrace();
+			retornoMetodo = gson.toJson(false);
+			objJsonRetorno = new JsonParser().parse(retornoMetodo);
+			return objJsonRetorno;
+		}
+
+		retornoMetodo = gson.toJson(true);
+		objJsonRetorno = new JsonParser().parse(retornoMetodo);
+		return objJsonRetorno;
+	}
 
 }

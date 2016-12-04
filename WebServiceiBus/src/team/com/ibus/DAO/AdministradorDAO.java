@@ -2,17 +2,25 @@ package team.com.ibus.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import ibus.com.webservice.ConectaMySQL;
 import team.com.ibus.Dominio.Administrador;
 
 public class AdministradorDAO {
 	
-	public Boolean insertAdmin(Administrador admin){
+	public JsonElement insertAdmin(JsonElement objAdmin){
+		
+		String retornoMetodo = "";
+		JsonElement objJsonRetorno = null;
+		Gson gson = new Gson();
 		
 		try {
+			Administrador admin = gson.fromJson(objAdmin, Administrador.class);
+			
 			Connection conexao = ConectaMySQL.obterConexao();
 			
 			String queryInsert = "INSERT INTO administrador (nome, login, senha, cpf, codigo_acesso) "
@@ -30,9 +38,13 @@ public class AdministradorDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			retornoMetodo = gson.toJson(false);
+			objJsonRetorno = new JsonParser().parse(retornoMetodo);
+			return objJsonRetorno;
 		}
+		retornoMetodo = gson.toJson(true);
+		objJsonRetorno = new JsonParser().parse(retornoMetodo);
+		return objJsonRetorno;
 		
-		return true;
 	}
 }

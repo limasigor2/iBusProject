@@ -1,10 +1,12 @@
 package team.com.ibus.DAO;
 
 import java.util.ArrayList;
+import java.lang.reflect.Type;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 import team.com.ibus.Dominio.Onibus;
 
@@ -25,8 +27,8 @@ public class JavaJson {
 		OnibusDAO dao = new OnibusDAO();
 		//JsonElement response = dao.inserirOnibus(objJson);
 		JsonElement response = dao.buscarTodosOsOnibus();
-		ArrayList<Onibus> resposta = gson.fromJson(response, ArrayList.class);
-		
+		Type listType = new TypeToken<ArrayList<Onibus>>() {}.getType();
+		ArrayList<Onibus> resposta = gson.fromJson(response, listType);
 		for(Onibus o : resposta){
 			System.out.println(o.getCor() + o.getPlaca() + o.getId());
 		}
