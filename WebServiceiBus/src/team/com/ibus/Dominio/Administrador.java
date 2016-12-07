@@ -4,18 +4,27 @@ package team.com.ibus.Dominio;
  * Created by User on 17/11/2016.
  */
 
-public class Administrador extends Usuario{
+public class Administrador{
 
 	private Integer id;
+	private String nome;
+	private String login;
+	private String senha;
 	private Integer cpf;
     private Integer codigoDeAcesso;
     
 	public Administrador(String nome, String login, String senha, Integer cpf, Integer codigoAcesso) {
-		super(nome, login, senha);
+		this.nome = nome;
+		this.login = login;
+		this.senha = senha;
 		this.cpf = cpf;
 		this.codigoDeAcesso = codigoAcesso;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+	
 	public Integer getCpf() {
 		return cpf;
 	}
@@ -32,11 +41,28 @@ public class Administrador extends Usuario{
 		this.codigoDeAcesso = codigoDeAcesso;
 	}
 
-	public Integer getId() {
-		return id;
+	public String getNome() {
+		return nome;
 	}
-	
-	
-	
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
 }

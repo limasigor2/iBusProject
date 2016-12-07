@@ -5,7 +5,7 @@ import java.util.Date;
 public class TrajetoRealizado {
 	
 	private Integer id;
-	private Integer idOnibus;
+	private Integer trajPrevisto;
 	private Date horaSaidaRealizada;
 	private Date horaChegadaRealizada;
     
@@ -31,5 +31,13 @@ public class TrajetoRealizado {
 
 	public void setHoraChegadaRealizada(Date horaChegadaRealizada) {
 		this.horaChegadaRealizada = horaChegadaRealizada;
+	}
+
+	public Integer getTrajPrevisto() {
+		return trajPrevisto;
+	}
+
+	public void setTrajPrevisto(Integer trajPrevisto) {
+		this.trajPrevisto = trajPrevisto;
 	}
 }

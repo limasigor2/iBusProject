@@ -16,43 +16,39 @@ import java.sql.ResultSet;
 
 public class OnibusDAO {
 
-	public JsonElement insertOnibus(JsonElement objOnibus){
+	public String insertOnibus(String objOnibus){
 
 		String retornoMetodo = "";
-		JsonElement objJsonRetorno = null;
 		Gson gson = new Gson();
-
+		
 		try{
-
+			
 			Onibus onibus = gson.fromJson(objOnibus, Onibus.class);
 
 			Connection conexao = ConectaMySQL.obterConexao();
-
+			
 			String queryInsert = "INSERT INTO onibus(placa, cor) VALUES (?, ?)";
-
+			
 			PreparedStatement preparedStatement = conexao.prepareStatement(queryInsert);
 			preparedStatement.setString(1, onibus.getPlaca());
 			preparedStatement.setString(2, onibus.getCor());
 			preparedStatement.executeUpdate();
-
+			
 			conexao.close();
-
+			
 		}catch(Exception ex){
 			ex.printStackTrace();
 			retornoMetodo = gson.toJson(false);
-			objJsonRetorno = new JsonParser().parse(retornoMetodo);
-			return objJsonRetorno;
+			return retornoMetodo;
 		}
 
 		retornoMetodo = gson.toJson(true);
-		objJsonRetorno = new JsonParser().parse(retornoMetodo);
-		return objJsonRetorno;
+		return retornoMetodo;
 	}
 
-	public JsonElement deleteOnibus(JsonElement objOnibus){
+	public String deleteOnibus(String objOnibus){
 
 		String retornoMetodo = "";
-		JsonElement objJsonRetorno = null;
 		Gson gson = new Gson();
 
 		try{
@@ -60,33 +56,30 @@ public class OnibusDAO {
 			Onibus onibus = gson.fromJson(objOnibus, Onibus.class);
 
 			Connection conexao = ConectaMySQL.obterConexao();
-
+			
 			String queryDelete = "DELETE FROM onibus WHERE id = ?";
 
 			PreparedStatement preparedStatement = conexao.prepareStatement(queryDelete);
 			preparedStatement.setInt(1, onibus.getId());
 			preparedStatement.executeUpdate();
-
+			
 			conexao.close();
-
-		}catch(Exception ex){
-			ex.printStackTrace();
+			
+		}catch(Exception e){
+			e.printStackTrace();
 			retornoMetodo = gson.toJson(false);
-			objJsonRetorno = new JsonParser().parse(retornoMetodo);
-			return objJsonRetorno;
-		}
+			return retornoMetodo;
+		}	
 
 		retornoMetodo = gson.toJson(true);
-		objJsonRetorno = new JsonParser().parse(retornoMetodo);
-		return objJsonRetorno;
+		return retornoMetodo;
 	}
 
-	public JsonElement buscarTodosOsOnibus(){
+	public String buscarOnibus(){
 
 		Gson gson = new Gson();
-		JsonElement objJsonRetorno = null;
 		String listaOnibusRetorno = "";
-		ArrayList<Onibus> listaOnibus = new ArrayList();
+		ArrayList<Onibus> listaOnibus = new ArrayList<>();
 
 		try{
 
@@ -95,7 +88,6 @@ public class OnibusDAO {
 			String querySelect = "SELECT * FROM onibus";
 
 			PreparedStatement preparedStatement = conexao.prepareStatement(querySelect);
-
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			while(resultSet.next()){
@@ -108,27 +100,23 @@ public class OnibusDAO {
 
 			conexao.close();
 
-		}catch(Exception ex){
-			ex.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
 			listaOnibusRetorno = gson.toJson(null);
-			objJsonRetorno = new JsonParser().parse(listaOnibusRetorno);
-			return objJsonRetorno;
+			return listaOnibusRetorno;
 		}
 
 		listaOnibusRetorno = gson.toJson(listaOnibus);
-		objJsonRetorno = new JsonParser().parse(listaOnibusRetorno);
-		return objJsonRetorno;
+		return listaOnibusRetorno;
 	}
 
+	public String updateOnibus(String objOnibus){
 
-	public JsonElement updateOnibus(JsonElement objOnibus){
-		
 		Gson gson = new Gson();
-		JsonElement objJsonRetorno = null;
 		String retornoMetodo = "";
-		
+
 		try{
-			
+
 			Onibus onibus = gson.fromJson(objOnibus, Onibus.class);
 
 			Connection conexao = ConectaMySQL.obterConexao();
@@ -143,16 +131,13 @@ public class OnibusDAO {
 
 			conexao.close();
 
-		}catch(Exception ex){
-			ex.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
 			retornoMetodo = gson.toJson(false);
-			objJsonRetorno = new JsonParser().parse(retornoMetodo);
-			return objJsonRetorno;
+			return retornoMetodo;
 		}
 
 		retornoMetodo = gson.toJson(true);
-		objJsonRetorno = new JsonParser().parse(retornoMetodo);
-		return objJsonRetorno;
+		return retornoMetodo;
 	}
-
 }

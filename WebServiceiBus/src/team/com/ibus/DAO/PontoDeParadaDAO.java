@@ -5,14 +5,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
+
 import ibus.com.webservice.ConectaMySQL;
 import team.com.ibus.Dominio.PontoDeParada;
 
 public class PontoDeParadaDAO {
 
-	public Boolean insertPontoParada(PontoDeParada pontoP){
+	public String insertPontoParada(String objPontoDeParada){
+
+		String retornoMetodo = "";
+		Gson gson = new Gson();
 
 		try {
+
+			PontoDeParada pontoP = gson.fromJson(objPontoDeParada, PontoDeParada.class);
+
 			Connection conexao = ConectaMySQL.obterConexao();
 
 			String queryInsert = "INSERT INTO ponto_parada (id_posicao, nome, descricao, endereco) "
@@ -29,17 +37,22 @@ public class PontoDeParadaDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			retornoMetodo = gson.toJson(false);
+			return retornoMetodo;
 		}
 
-		return true;
+		retornoMetodo = gson.toJson(true);
+		return retornoMetodo;
 	}
 
-	public ArrayList<PontoDeParada> listarPontosDeParada(){
+	public String buscarPontosDeParada(){
 
+		String retornoMetodo = "";
+		Gson gson = new Gson();
 		ArrayList<PontoDeParada> pontosDeParada = new ArrayList<PontoDeParada>();
 
 		try {
+
 			Connection conexao = ConectaMySQL.obterConexao();
 
 			String querySelect = "SELECT * FROM ponto_parada";
@@ -61,35 +74,52 @@ public class PontoDeParadaDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			retornoMetodo = gson.toJson(null);
+			return retornoMetodo;
 		}
 
-		return pontosDeParada;
+		retornoMetodo = gson.toJson(pontosDeParada);
+		return retornoMetodo;
 	}
 
-	public Boolean deletePontoParada(Integer id){
+	public String deletePontoParada(String objPontoDeParada){
+
+		String retornoMetodo = "";
+		Gson gson = new Gson();
 
 		try {
+
+			PontoDeParada pontoP = gson.fromJson(objPontoDeParada, PontoDeParada.class);
+
 			Connection conexao = ConectaMySQL.obterConexao();
 
 			String queryDelete = "DELETE FROM ponto_parada WHERE id = ?";
 
 			PreparedStatement preparedStm = conexao.prepareStatement(queryDelete);
-			preparedStm.setInt(1, id);
+			preparedStm.setInt(1, pontoP.getId());
 			preparedStm.executeUpdate();
 
 			conexao.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			retornoMetodo = gson.toJson(false);
+			return retornoMetodo;
 		}
 
-		return true;
+		retornoMetodo = gson.toJson(true);
+		return retornoMetodo;
 	}
 
-	public Boolean updatePontoParada(PontoDeParada pontoP){
+	public String updatePontoParada(String objPontoDeParada){
+
+		String retornoMetodo = "";
+		Gson gson = new Gson();
 
 		try {
+
+			PontoDeParada pontoP = gson.fromJson(objPontoDeParada, PontoDeParada.class);
+
 			Connection conexao = ConectaMySQL.obterConexao();
 
 			String queryInsert = "UPDATE ponto_parada set nome = ?, descricao = ? WHERE id = ?";
@@ -104,10 +134,11 @@ public class PontoDeParadaDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			retornoMetodo = gson.toJson(false);
+			return retornoMetodo;
 		}
 
-		return true;
+		retornoMetodo = gson.toJson(true);
+		return retornoMetodo;
 	}
-
 }

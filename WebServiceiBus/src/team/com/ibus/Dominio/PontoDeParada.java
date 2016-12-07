@@ -11,7 +11,7 @@ public class PontoDeParada {
 	private String nome;
     private String descricao;
     private String endereco;
-    private Posicao posicao;
+    //private Posicao posicao;
 	
     public Integer getId() {
 		return id;
@@ -45,13 +45,13 @@ public class PontoDeParada {
 		this.idPosicao = idPosicao;
 	}
 
-	public Posicao getPosicao() {
-		return posicao;
-	}
-
-	public void setPosicao(Posicao posicao) {
-		this.posicao = posicao;
-	}
+//	public Posicao getPosicao() {
+//		return posicao;
+//	}
+//
+//	public void setPosicao(Posicao posicao) {
+//		this.posicao = posicao;
+//	}
 
 	public String getEndereco() {
 		return endereco;

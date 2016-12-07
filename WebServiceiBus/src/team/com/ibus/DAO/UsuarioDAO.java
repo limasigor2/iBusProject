@@ -10,19 +10,20 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import ibus.com.webservice.ConectaMySQL;
+import team.com.ibus.Dominio.Onibus;
 import team.com.ibus.Dominio.Usuario;
 
 public class UsuarioDAO {
 
-	public JsonElement insertUsuario(JsonElement objUsuario){
+	public String insertUsuario(String objUsuario){
 
+		Usuario usuario;
 		String retornoMetodo = "";
-		JsonElement objJsonRetorno = null;
 		Gson gson = new Gson();
 
 		try {
 
-			Usuario usuario = gson.fromJson(objUsuario, Usuario.class);
+			usuario = gson.fromJson(objUsuario, Usuario.class);
 
 			Connection conexao = ConectaMySQL.obterConexao();
 
@@ -40,19 +41,18 @@ public class UsuarioDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			retornoMetodo = gson.toJson(false);
-			objJsonRetorno = new JsonParser().parse(retornoMetodo);
-			return objJsonRetorno;
+			return retornoMetodo;
 		}
 
 		retornoMetodo = gson.toJson(true);
-		objJsonRetorno = new JsonParser().parse(retornoMetodo);
-		return objJsonRetorno;
+		return retornoMetodo;
 	}
 
-	// falta JSON
-	public ArrayList<Usuario> listarUsuarios(){
+	public String buscarUsuarios(){
 
-		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+		Gson gson = new Gson();
+		String listaOnibusRetorno = "";
+		ArrayList<Usuario> listaUsuarios = new ArrayList();
 
 		try {
 			Connection conexao = ConectaMySQL.obterConexao();
@@ -68,64 +68,24 @@ public class UsuarioDAO {
 				user.setNome(resultQuery.getString(2));
 				user.setLogin(resultQuery.getString(3));
 				user.setSenha(resultQuery.getString(4));
-				usuarios.add(user);
+				listaUsuarios.add(user);
 			}
 
 			conexao.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			listaOnibusRetorno = gson.toJson(null);
+			return listaOnibusRetorno;
 		}
 
-		return usuarios;
+		listaOnibusRetorno = gson.toJson(listaUsuarios);
+		return listaOnibusRetorno;
 	}
 
-	public JsonElement getUsuarioId(JsonElement objId){
-
-		Usuario user = null;
-		String retornoMetodo = "";
-		JsonElement objJsonRetorno = null;
-		Gson gson = new Gson();
-
-		try {
-
-			Integer id = gson.fromJson(objId, Integer.class);
-
-			Connection conexao = ConectaMySQL.obterConexao();
-
-			String querySelect = "SELECT * FROM usuario WHERE id = ?";
-
-			PreparedStatement preparedStm = conexao.prepareStatement(querySelect);
-			preparedStm.setInt(1, id);
-
-			ResultSet resultQuery = preparedStm.executeQuery();
-			if(resultQuery.next()){
-				user = new Usuario();
-				user.setId(resultQuery.getInt(1));
-				user.setNome(resultQuery.getString(2));
-				user.setLogin(resultQuery.getString(3));
-				user.setSenha(resultQuery.getString(4));
-			}
-
-			conexao.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			retornoMetodo = gson.toJson(null);
-			objJsonRetorno = new JsonParser().parse(retornoMetodo);
-			return objJsonRetorno;
-		}
-
-		retornoMetodo = gson.toJson(user);
-		objJsonRetorno = new JsonParser().parse(retornoMetodo);
-		return objJsonRetorno; 
-
-	}
-
-	public JsonElement updateUsuario(JsonElement objUsuario){
+	public String updateUsuario(String objUsuario){
 
 		String retornoMetodo = "";
-		JsonElement objJsonRetorno = null;
 		Gson gson = new Gson();
 
 		try {
@@ -146,51 +106,17 @@ public class UsuarioDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			retornoMetodo = gson.toJson(false);
-			objJsonRetorno = new JsonParser().parse(retornoMetodo);
-			return objJsonRetorno;
+			return retornoMetodo;
 		}
 
 		retornoMetodo = gson.toJson(true);
-		objJsonRetorno = new JsonParser().parse(retornoMetodo);
-		return objJsonRetorno;
+		return retornoMetodo;
 	}
 
-	public JsonElement deleteUsuarioPorId(JsonElement objId){
+
+	public String deleteUsuario(String objUsuario){
 
 		String retornoMetodo = "";
-		JsonElement objJsonRetorno = null;
-		Gson gson = new Gson();
-
-		try {
-			Integer id = gson.fromJson(objId, Integer.class);
-
-			Connection conexao = ConectaMySQL.obterConexao();
-
-			String queryDelete = "DELETE FROM usuario WHERE id = ?";
-
-			PreparedStatement preparedStm = conexao.prepareStatement(queryDelete);
-			preparedStm.setInt(1, id);
-			preparedStm.executeUpdate();
-
-			conexao.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			retornoMetodo = gson.toJson(false);
-			objJsonRetorno = new JsonParser().parse(retornoMetodo);
-			return objJsonRetorno;
-		}
-
-		retornoMetodo = gson.toJson(true);
-		objJsonRetorno = new JsonParser().parse(retornoMetodo);
-		return objJsonRetorno;
-
-	}
-
-	public JsonElement deleteUsuario(JsonElement objUsuario){
-
-		String retornoMetodo = "";
-		JsonElement objJsonRetorno = null;
 		Gson gson = new Gson();
 
 		try {
@@ -209,12 +135,10 @@ public class UsuarioDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			retornoMetodo = gson.toJson(false);
-			objJsonRetorno = new JsonParser().parse(retornoMetodo);
-			return objJsonRetorno;
+			return retornoMetodo;
 		}
 
 		retornoMetodo = gson.toJson(true);
-		objJsonRetorno = new JsonParser().parse(retornoMetodo);
-		return objJsonRetorno;
+		return retornoMetodo;
 	}
 }

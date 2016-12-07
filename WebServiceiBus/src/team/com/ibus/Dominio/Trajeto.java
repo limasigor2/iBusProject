@@ -9,10 +9,12 @@ import java.util.Date;
 public class Trajeto {
 
     private Integer id;
+    private Integer idOnibus;
+    private Integer idRota;
 	private Date horaChegadaPrevista;
     private Date horaSaidaPrevista;
-    private Onibus onibus;
-    private Rota rota;
+//    private Onibus onibus;
+//    private Rota rota;
 	
     public Integer getId() {
 		return id;
@@ -37,4 +39,23 @@ public class Trajeto {
     public void setHoraSaidaPrevista(Date horaSaidaPrevista) {
 		this.horaSaidaPrevista = horaSaidaPrevista;
 	}
+
+	public Integer getIdOnibus() {
+		return idOnibus;
+	}
+
+	public void setIdOnibus(Integer idOnibus) {
+		this.idOnibus = idOnibus;
+	}
+
+	public Integer getIdRota() {
+		return idRota;
+	}
+
+	public void setIdRota(Integer idRota) {
+		this.idRota = idRota;
+	}
+
+    
+
 }

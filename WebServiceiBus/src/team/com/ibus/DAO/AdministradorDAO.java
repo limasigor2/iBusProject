@@ -12,10 +12,9 @@ import team.com.ibus.Dominio.Administrador;
 
 public class AdministradorDAO {
 	
-	public JsonElement insertAdmin(JsonElement objAdmin){
+	public String insertAdmin(String objAdmin){
 		
 		String retornoMetodo = "";
-		JsonElement objJsonRetorno = null;
 		Gson gson = new Gson();
 		
 		try {
@@ -39,12 +38,10 @@ public class AdministradorDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			retornoMetodo = gson.toJson(false);
-			objJsonRetorno = new JsonParser().parse(retornoMetodo);
-			return objJsonRetorno;
+			return retornoMetodo;
 		}
 		retornoMetodo = gson.toJson(true);
-		objJsonRetorno = new JsonParser().parse(retornoMetodo);
-		return objJsonRetorno;
+		return retornoMetodo;
 		
 	}
 }
