@@ -9,6 +9,7 @@ public class RotaDate {
 	private Integer id;
 	private Integer posPartida;
 	private Integer posDestino;
+	
  	
     public Integer getId() {
 		return id;

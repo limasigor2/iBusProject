@@ -2,10 +2,6 @@ package com.ibus.date;
 
 import java.util.Date;
 
-/**
- * Created by User on 17/11/2016.
- */
-
 public class TrajetoDate {
 
     private Integer id;

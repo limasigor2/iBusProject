@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
+
 import com.ibus.date.OnibusDate;
+import com.ibus.date.PosicaoDate;
+import com.ibus.dominio.Onibus;
 import com.ibus.webservice.ConectaMySQL;
 
 import java.sql.PreparedStatement;
@@ -14,7 +17,6 @@ public class OnibusDAO {
 
 	public String insertOnibus(String objOnibus){
 
-		String retornoMetodo = "";
 		Gson gson = new Gson();
 		
 		try{
@@ -34,17 +36,14 @@ public class OnibusDAO {
 			
 		}catch(Exception ex){
 			ex.printStackTrace();
-			retornoMetodo = gson.toJson(false);
-			return retornoMetodo;
+			return gson.toJson(false);
 		}
 
-		retornoMetodo = gson.toJson(true);
-		return retornoMetodo;
+		return gson.toJson(true);
 	}
 
 	public String deleteOnibus(String objOnibus){
 		
-		String retornoMetodo = "";
 		Gson gson = new Gson();
 
 		try{
@@ -63,18 +62,15 @@ public class OnibusDAO {
 			
 		}catch(Exception e){
 			e.printStackTrace();
-			retornoMetodo = gson.toJson(false);
-			return retornoMetodo;
+			return gson.toJson(false);
 		}	
 		
-		retornoMetodo = gson.toJson(true);
-		return retornoMetodo;
+		return gson.toJson(true);
 	}
 
 	public String buscarOnibus(){
 
 		Gson gson = new Gson();
-		String listaOnibusRetorno = "";
 		ArrayList<OnibusDate> listaOnibus = new ArrayList<>();
 
 		try{
@@ -98,18 +94,15 @@ public class OnibusDAO {
 
 		}catch(Exception e){
 			e.printStackTrace();
-			listaOnibusRetorno = gson.toJson(null);
-			return listaOnibusRetorno;
+			return gson.toJson(null);
 		}
 
-		listaOnibusRetorno = gson.toJson(listaOnibus);
-		return listaOnibusRetorno;
+		return gson.toJson(listaOnibus);
 	}
 
 	public String updateOnibus(String objOnibus){
 
 		Gson gson = new Gson();
-		String retornoMetodo = "";
 
 		try{
 
@@ -129,11 +122,43 @@ public class OnibusDAO {
 
 		}catch(Exception e){
 			e.printStackTrace();
-			retornoMetodo = gson.toJson(false);
-			return retornoMetodo;
+			return gson.toJson(false);
 		}
 
-		retornoMetodo = gson.toJson(true);
-		return retornoMetodo;
+		return gson.toJson(true);
+	}
+	
+	public String buscarPosicaoAtualOnibus(String objOnibus){
+		
+		Gson gson = new Gson();
+		PosicaoDate posicaoOnibus = null;
+		
+		try{
+			
+			Connection conexao = ConectaMySQL.obterConexao();
+			
+			OnibusDate onibus = gson.fromJson(objOnibus, OnibusDate.class);
+			
+			String querySelect = "SELECT p.* FROM posicao p, onibus o " +
+								 "WHERE o.id = ? AND p.id = o.id_posicao";
+			
+			PreparedStatement preparedStatement = conexao.prepareStatement(querySelect);
+			preparedStatement.setInt(1, onibus.getId());
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while(resultSet.next()){
+				posicaoOnibus = new PosicaoDate();
+				posicaoOnibus.setId(resultSet.getInt(1));
+				posicaoOnibus.setLatitude(resultSet.getDouble(2));
+				posicaoOnibus.setLongitude(resultSet.getDouble(3));
+			}
+
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return gson.toJson(null);
+		}
+		
+		return gson.toJson(posicaoOnibus);
 	}
 }

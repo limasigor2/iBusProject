@@ -12,7 +12,7 @@ import com.ibus.webservice.ConectaMySQL;
 public class RotaDAO {
 
 	public String insertRota(String objRota){
-
+		
 		String retornoMetodo = "";
 		Gson gson = new Gson();
 

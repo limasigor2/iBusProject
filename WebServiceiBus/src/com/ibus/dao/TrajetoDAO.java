@@ -7,7 +7,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
+
 import com.ibus.date.TrajetoDate;
+import com.ibus.date.TrajetoRotaDate;
+import com.ibus.dominio.Posicao;
+
 import com.ibus.webservice.ConectaMySQL;
 
 public class TrajetoDAO {
@@ -80,6 +84,62 @@ public class TrajetoDAO {
 
 		listaTrajetosRetorno = gson.toJson(trajetos);
 		return listaTrajetosRetorno;
+	}
+	
+	public String buscarTrajetoRota(){
+
+		Gson gson = new Gson();
+		ArrayList<TrajetoRotaDate> listaTrajetosERotas = new ArrayList<TrajetoRotaDate>();
+
+		try {
+			
+			Connection conexao = ConectaMySQL.obterConexao();
+
+			String querySelect = "SELECT t.id, t.hora_saida_prevista, t.hora_chegada_prevista, "
+							   + "r.id " +
+								 "FROM trajeto t, rota r WHERE t.id_rota = r.id";
+
+			PreparedStatement preparedStm = conexao.prepareStatement(querySelect);
+			ResultSet resultQuery = preparedStm.executeQuery();
+
+			while(resultQuery.next()){
+				TrajetoRotaDate trajetoRota = new TrajetoRotaDate();
+				trajetoRota.setHoraSaidaPrevista(resultQuery.getDate(2));
+				trajetoRota.setHoraChegadaPrevista(resultQuery.getDate(3));
+				
+				String querySelectPosPartida = "SELECT p.* FROM posicao p, rota r " +
+											   "WHERE r.id = ? and p.id = r.posicao_partida";
+				preparedStm = conexao.prepareStatement(querySelectPosPartida);
+				preparedStm.setInt(1, resultQuery.getInt(4));
+				ResultSet resultSelectPosPartida = preparedStm.executeQuery();
+				
+				while(resultSelectPosPartida.next()){
+					Posicao posPartida = new Posicao(resultSelectPosPartida.getDouble(2), resultSelectPosPartida.getDouble(3));
+					trajetoRota.setPosicaoPartida(posPartida);
+				}
+				
+				String querySelectPosDestino = "SELECT p.* FROM posicao p, rota r " +
+						   					   "WHERE r.id = ? and p.id = r.posicao_destino";
+				preparedStm = conexao.prepareStatement(querySelectPosDestino);
+				preparedStm.setInt(1, resultQuery.getInt(4));
+				ResultSet resultSelectPosDestino = preparedStm.executeQuery();
+				
+				while(resultSelectPosDestino.next()){
+					Posicao posDetino = new Posicao(resultSelectPosDestino.getDouble(2), resultSelectPosDestino.getDouble(3));
+					trajetoRota.setPosicaoDestino(posDetino);
+				}
+				
+				listaTrajetosERotas.add(trajetoRota);
+			}
+
+			conexao.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return gson.toJson(null);
+		}
+
+		return gson.toJson(listaTrajetosERotas);
 	}
 
 	public String updateTrajeto(String objTrajeto){
