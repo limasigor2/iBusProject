@@ -3,25 +3,34 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_onibus_admin"
+            android:id="@+id/nav_cad_onibus"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Ônibus" />
+            android:title="Cadastrar Onibus" />
         <item
-            android:id="@+id/nav_rotas"
+            android:id="@+id/nav_listar_onibus"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Rotas" />
+            android:title="Listar Ônibus" />
         <item
-            android:id="@+id/nav_pontos_parada"
+            android:id="@+id/nav_cad_trajeto"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Pontos de Parada" />
+            android:title="Cadastrar Trajeto" />
         <item
-            android:id="@+id/nav_trajetos"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Trajetos" />
-        <item
-            android:id="@+id/nav_perfil"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Perfil" />
+            android:id="@+id/nav_listar_trajeto"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Listar Trajeto" />
     </group>
+
+    <!--<item android:title="Communicate">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_share"-->
+                <!--android:icon="@drawable/ic_menu_share"-->
+                <!--android:title="Share" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_send"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="Send" />-->
+        <!--</menu>-->
+    <!--</item>-->
 
 </menu>

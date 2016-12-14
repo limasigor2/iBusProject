@@ -1,8 +1,27 @@
 <resources>
-    <string name="app_name">IBus</string>
+    <string name="app_name">Ibus</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="spinner_cadastro_rota">Escolha os pontos de parada :arra</string>
+
+
+    <string-array name="array_spinner">
+        <item>  Escolha os pontos de parada :</item>
+    </string-array>
+
+    <string-array name="array_spinner_rotas">
+        <item>  Escolha a rota :</item>
+    </string-array>
+
+    <string-array name="array_spinner_onibus">
+        <item>  Escolha o ônibus :</item>
+    </string-array>
+
+    <string name="ip_server">10.0.54.75</string>
+    <string name="namespace_server">http://DAO.ibus.com.team</string>
+
+
 </resources>

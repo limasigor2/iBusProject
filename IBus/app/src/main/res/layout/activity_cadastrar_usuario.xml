@@ -8,77 +8,86 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="team.com.ibus.Activity.CadastrarUsuarioActivity">
+    tools:context="team.com.ibus.CadastrarUsuario">
 
-    <TextView
-        android:text="Nome:"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_nome_cadastrar_usuario"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="12dp"
-        android:fontFamily="sans-serif" />
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/til_nome">
 
-    <TextView
-        android:text="Login:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:id="@+id/tv_login_cadastrar_usuario"
-        android:layout_below="@+id/et_nome_cadastrar_usuario"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        <EditText
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome" />
+    </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/et_nome_cadastrar_usuario"
-        android:singleLine="false"
-        android:selectAllOnFocus="false"
-        android:layout_below="@+id/tv_nome_cadastrar_usuario"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
 
-    <EditText
-        android:layout_width="wrap_content"
+        android:layout_below="@id/til_nome"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/tv_login_cadastrar_usuario"
-        android:layout_alignParentStart="true"
-        android:id="@+id/et_login_cadastrar_usuario"
-        android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:text="Senha:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/et_login_cadastrar_usuario"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="28dp"
-        android:id="@+id/tv_senha_cadastrar_usuario" />
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="80dp"
+        android:id="@+id/til_login">
 
-    <EditText
-        android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Login" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/tv_senha_cadastrar_usuario"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/et_senha_cadastrar_usuario"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="140dp"
+        android:id="@+id/til_senha">
+
+        <EditText
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Senha"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="200dp"
+        android:id="@+id/til_confirmar_senha">
+
+        <EditText
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirmar senha" />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:text="Cadastrar Usuário"
-        android:layout_width="wrap_content"
+        android:text="cadastrar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="13dp"
         android:id="@+id/bt_cadastrar_usuario"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:background="@android:color/holo_green_dark"
-        android:textColor="@android:color/white"/>
+        android:background="@color/cadastrarBottoms"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+
 </RelativeLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_cadastrar_rota"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="team.com.ibus.Activity.CadastrarRota">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/til_ponto_origem_rota"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:id="@+id/til_ponto_destino_rota">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Destino" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/til_ponto_origem_rota"
+        android:layout_marginTop="194dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Origem" />
+    </android.support.design.widget.TextInputLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/map_cadstro_rota"
+        android:id="@+id/imageView5"
+        android:layout_weight="1"
+        android:layout_above="@+id/til_ponto_destino_rota"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="65dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_marginTop="28dp"
+        android:id="@+id/spinner"
+        android:entries="@array/array_spinner"
+        android:layout_height="30dp"
+        android:layout_below="@+id/til_ponto_destino_rota"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Cadastrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/bt_cadastrar_rota"
+        android:layout_alignParentEnd="true"
+        android:background="@color/cadastrarBottoms"
+        android:textColor="@android:color/white"
+        />
+
+</RelativeLayout>
